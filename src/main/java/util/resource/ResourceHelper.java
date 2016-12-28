@@ -30,9 +30,7 @@
  *
  *    Release History:
  *    v1.0.0    Initial Release
- *              2168b72f926a8b4b0bbb52f491e4883fdc45ee10 git sha ClockInJava2
  *    v1.0.1    Create the builder, debug dump structure, debug runtime methods
- *              cfe32062c0e6b3f374061fa1bf75ca8d250710ee git sha ClockInJava2
  *    v1.0.2    Update license
  *    v1.0.3    Update package.  Move from ClockInJava2 to new repository
  *
@@ -81,7 +79,7 @@ import javax.imageio.ImageIO;
  *
  *  <li>(Optional) Copy src/main/resources/images/icon/spinner.gif into your project
  *       and run
- *       $ java -cp build/classes util.ResourceHelper\$MyMain
+ *       $ java -cp build/classes util.resource.ResourceHelper\$MyMain
  *       and make sure it ends with "Image load success"
  *
  *  <li>Wire in your ResourceHelper
@@ -329,7 +327,7 @@ public class ResourceHelper {
 
         /**
          * You are also responsible for a 1-line description of this loader [for troubleshooting].
-         * @see util.ResourceHelper.RhBaseAbstract#loaderDescription()
+         * @see util.resource.ResourceHelper.RhBaseAbstract#loaderDescription()
          */
         @Override
         public abstract String loaderDescription();
