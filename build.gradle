@@ -1,0 +1,80 @@
+// target:  'build'          - does not run integration tests
+// target:  'integTest'      - runs integration tests (about 5 minutes worth)
+// target:  'publish'        - push to local (archiva, as guest)
+// target:  'uploadArchives' - push to maven central (sonatype, as user)
+// target:  'jacocoTestReport'      - code coverage from unit tests
+// target:  'jacocoIntegTestReport' - coverage from integration tests and UTs
+// target:  'sonarRunner'    - publish data to locally running SonarCube
+// target:  'signArchives'   - test signature operation
+//
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+version = '0.5.5'
+project.ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+sourceCompatibility = 1.6
+
+
+dependencies {
+    testCompile group: 'junit',         name: 'junit',          version: '4.11'
+}
+
+repositories {
+    if (project.hasProperty('archivaBaseUrl') ) {
+        maven { url project.archivaBaseUrl + "/internal" }
+        maven { url project.archivaBaseUrl + "/snapshots" }
+    } else {
+        mavenLocal()
+        mavenCentral()
+    }    
+}
+
+sourceSets {
+    integTest {
+        java.srcDir file("src/integTest/java")
+        resources.srcDir file("src/integTest/resources")
+        compileClasspath = 
+            sourceSets.main.output +
+            sourceSets.test.output +
+            configurations.testRuntime
+        runtimeClasspath = output + compileClasspath
+    }
+}
+
+
+test {
+  // set heap size for the test JVM(s)
+  minHeapSize = "128m"
+  //maxHeapSize = "2030m"  // 1863
+   maxHeapSize = "2430m"  // 2160
+    exclude '**/*IntegTest.class'
+    reports.html.destination = file ("$reports.html.destination/test")
+    reports.junitXml.destination = file ("$reports.junitXml.destination/test")
+}
+
+task integTest(type: Test, group: 'Build') {
+    testClassesDir = sourceSets.integTest.output.classesDir
+    classpath = sourceSets.integTest.runtimeClasspath
+    include '**/*IntegTest.class'
+    reports.html.destination = file ("$reports.html.destination/integTest")
+    reports.junitXml.destination = file ("$reports.junitXml.destination/integTest")
+    
+    // Your choice on when to run integTest:
+    //  a) check.dependsOn integTest -
+    //         causes 'build' -> check -> integTest     and runs in 5 minutes
+    //  b) comment out // check.dependsOn integTest -
+    //         causes 'build' -> check                  and runs in 12 seconds
+    //comment out// check.dependsOn integTest
+}
+
+jar {
+    manifest {
+        attributes("Main-Class" : "util.main.Main")
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}
+
