@@ -108,8 +108,25 @@ import javax.imageio.ImageIO;
  *  See the class RhHardCodedContentLoader, which provides a starting point, and allows you to place base-64 encoded
  *    data into your .java, and return it as a resource.
  *
+ * Copyright (c) 2013 Tim Tiemens
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions
+ *  of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ *  TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ *  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+ *  CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ *  DEALINGS IN THE SOFTWARE.
+ *
  * @author timtiemens
- * @version 1.0.2
+ * @version 1.0.3
  *
  */
 public class ResourceHelper {
@@ -496,7 +513,7 @@ public class ResourceHelper {
     }
 
     public static class RhZipfileLoader extends RhWrapperAbstract implements ResourceLoader {
-        private boolean needsGzipUncompress;
+        private final boolean needsGzipUncompress;
         public RhZipfileLoader(final ResourceLoader sourceOfZipStream, final boolean inNeedsGzipUncompress) {
             super(sourceOfZipStream);
             needsGzipUncompress = inNeedsGzipUncompress;
@@ -839,8 +856,8 @@ public class ResourceHelper {
 
 
     public static class ResourceHelperBuilder {
-        private List<ResourceLoader> preparing = new ArrayList<ResourceLoader>();
-        private Map<String, ResourceLoader> name2loader = new HashMap<String, ResourceLoader>();
+        private final List<ResourceLoader> preparing = new ArrayList<ResourceLoader>();
+        private final Map<String, ResourceLoader> name2loader = new HashMap<String, ResourceLoader>();
         private String lastName = null;
 
         public ResourceHelperBuilder() {

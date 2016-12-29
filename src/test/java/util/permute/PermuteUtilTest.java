@@ -8,8 +8,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import util.permute.PermuteUtil;
-
 public class PermuteUtilTest {
 
     // stateless
@@ -179,8 +177,10 @@ public class PermuteUtilTest {
 
     @Test
     public void testHelperThirtyThousand() {
-        List<Integer> actual = permuteUtil.getPermutationIndexes(30000, 50);
-        Assert.assertEquals(30000, actual.size());
+        // A "default" JVM gives 890mb, which is large enough for 30,000
+        final int size = 30000;
+        List<Integer> actual = permuteUtil.getPermutationIndexes(size, 50);
+        Assert.assertEquals(size, actual.size());
         // 1-29994 are in order, then shuffling starts:  29992, 29993, 29994, 29997, 29995, 29996,
         //System.out.println("Max30000=" + actual);
     }
@@ -191,6 +191,9 @@ public class PermuteUtilTest {
         Runtime runtime = Runtime.getRuntime();
         int mbmemory = (int) (runtime.maxMemory() / mb);
         int size = 100;
+        if (mbmemory > 890) {
+            size = 30000;
+        }
         if (mbmemory > 2159) {
             size = 45000; // for 2160  50,000 is too big
         }
@@ -202,6 +205,25 @@ public class PermuteUtilTest {
         Assert.assertEquals(size, actual.size());
         // 1-29994 are in order, then shuffling starts:  29992, 29993, 29994, 29997, 29995, 29996,
         //System.out.println("Max30000=" + actual);
+    }
+
+    @Test
+    public void testWiki() {
+        // https://en.wikipedia.org/wiki/Permutation#Generation_in_lexicographic_order
+        List<Integer> input = Arrays.asList(1, 2, 3, 4);
+        List<Integer> actual, expected;
+
+        //
+        actual = permuteUtil.nthPermutation(input, BigInteger.valueOf(2));
+        expected = Arrays.asList(1,2,4,3);
+        Assert.assertEquals(expected, actual);
+
+        // the next lexicographic permutation will be [1,3,2,4], and the 24th permutation will be [4,3,2,1]
+        actual = permuteUtil.nthPermutation(input, BigInteger.valueOf(3));
+        expected = Arrays.asList(1,3,2,4);
+
+        actual = permuteUtil.nthPermutation(input, BigInteger.valueOf(24));
+        expected = Arrays.asList(4,3,2,1);
     }
 
     @Test

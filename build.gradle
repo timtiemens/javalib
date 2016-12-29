@@ -45,9 +45,8 @@ sourceSets {
 
 test {
   // set heap size for the test JVM(s)
-  minHeapSize = "128m"
-  //maxHeapSize = "2030m"  // 1863
-   maxHeapSize = "2430m"  // 2160
+    //minHeapSize = "128m"
+    //maxHeapSize = "2430m"  // 2160 reported by getRuntime().maxMemory()
     exclude '**/*IntegTest.class'
     reports.html.destination = file ("$reports.html.destination/test")
     reports.junitXml.destination = file ("$reports.junitXml.destination/test")
