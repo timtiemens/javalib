@@ -33,6 +33,7 @@ Use
 
 License
 -----
+   The code is this repository is licensed under the [MIT] license.
    
 
 Items in this project
@@ -46,3 +47,4 @@ Items in this project
 
 [ResourceHelper]:src/main/java/util/resource/Readme.md
 [PermuteUtil]:src/main/java/util/permute/Readme.md
+[MIT]:https://opensource.org/licenses/MIT

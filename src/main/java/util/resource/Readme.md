@@ -19,4 +19,4 @@ Specifically, solves this problem:
    /etc/app/myapp.properties
 
 
-[MIT]:https://en.wikipedia.org/wiki/MIT_License
+[MIT]:https://opensource.org/licenses/MIT
