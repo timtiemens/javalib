@@ -27,16 +27,21 @@ First, build the .jar with gradle jar.
 
 Then, try these command lines:
   * java -cp build/libs/javalib-0.5.5.jar util.permute.PermuteUtil 1000000 10
+```
     This is Project Euler problem number 24.
     It prints
     [2, 7, 8, 3, 9, 1, 5, 4, 6, 0]
+```
 
   * java -cp build/libs/javalib-0.5.5.jar util.permute.PermuteUtil 5934 a b c d e f g h
+```
     You can specify the items in the list as arguments.
     It prints
     [b, c, d, f, a, h, g, e]
+```
 
   * java -cp build/libs/javalib-0.5.5.jar  util.permute.PermuteUtil 1024 9 | tr , \\n | sed 's/\[/ /' |sed 's/\]//'
+```
     Shows how to change into "1 line per permutation".
     It prints
  0
@@ -48,7 +53,7 @@ Then, try these command lines:
  4
  8
  2
-
+```
 
 
 Documentation
