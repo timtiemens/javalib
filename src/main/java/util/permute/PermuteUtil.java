@@ -154,14 +154,18 @@ public class PermuteUtil {
      */
     public List<Integer> getPermutationIndexes(final int size, final BigInteger permutationNumber) {
         // create the indexes, 0-to-N-1
-        ArrayList<Integer> numberList = new ArrayList<Integer>();
-        for (int i = 0; i < size; i++) {
-            numberList.add(i);
-        }
+        List<Integer> numberList = createNumberList(size);
 
         return nthPermutation(numberList, permutationNumber);
     }
 
+    private static List<Integer> createNumberList(final int size) {
+        ArrayList<Integer> numberList = new ArrayList<Integer>();
+        for (int i = 0; i < size; i++) {
+            numberList.add(i);
+        }
+        return numberList;
+    }
 
     public <T> BigInteger getLargestPermutationNumber(List<T> list) {
         return getLargestPermutationNumberForListSize(list.size());
@@ -232,5 +236,27 @@ public class PermuteUtil {
             }
         }
 
+    }
+
+    /**
+     * @param args {permutationNumber} {size|a b c d e}
+     * @throws IllegalArgumentException if permuteNumber is not in range 1-to-size!
+     */
+    public static void main(String[] args) {
+        BigInteger permutationNumber = new BigInteger(args[0]);
+        List input;
+        if (args.length > 2) {
+            input = new ArrayList<String>();
+            // list given by arguments
+            for (int i = 1, n = args.length; i < n; i++) {
+                input.add(args[i]);
+            }
+        } else {
+            int size = Integer.valueOf(args[1]);
+            input = createNumberList(size);
+        }
+        List answer = new PermuteUtil().nthPermutation(input, permutationNumber);
+        System.out.println("Permutation Number " + permutationNumber);
+        System.out.println(answer);
     }
 }
