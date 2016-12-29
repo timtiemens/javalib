@@ -4,9 +4,12 @@ Code that allows resources (e.g. .properties files, .png images, etc.) to
 be both (1) included in your deployment jar/war/ear and (2) overridden by
 files on your filesystem.
 
-Allows the locations to be prioritized.
+Features
+----
 
-Allows locations to be files within .jar files.
+ * Allows the locations to be prioritized.
+ * Allows locations to be files within .jar files.
+ * Has a very permissive license ([MIT])
 
 Specifically, solves this problem:
  * At the start of your project, you want resources from the filesystem,
@@ -16,3 +19,4 @@ Specifically, solves this problem:
    /etc/app/myapp.properties
 
 
+[MIT]:https://en.wikipedia.org/wiki/MIT_License
